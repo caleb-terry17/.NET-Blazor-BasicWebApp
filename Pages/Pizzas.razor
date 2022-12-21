@@ -1,0 +1,46 @@
+﻿@page "/pizzas"
+@using BlazorApp.Models;
+@using BlazorApp.Services;
+@inject PizzaService PizzaSvc;
+@inject HttpClient HttpClient;
+@inject NavigationManager NavigationManager;
+
+<h3>Pizzas</h3>
+
+@if (pizzas == null)
+{
+	<p>Pizzas are loading...</p>
+}
+else
+{
+	<table>
+		<thead>
+			<tr>
+				<th>Pizza Name</th>
+				<th>Id</th>
+				<th>Price</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (Pizza pizza in pizzas)
+			{
+				<tr>
+					<td>@pizza.Name</td>
+					<td>@pizza.Id</td>
+					<td>@pizza.Price</td>
+					<td>@pizza.Description</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+
+@code {
+	private List<Pizza>? pizzas = null;
+
+	protected override async Task OnInitializedAsync()
+	{
+		pizzas = await HttpClient.GetFromJsonAsync<List<Pizza>>(NavigationManager.BaseUri + "pizzas");
+	}
+}

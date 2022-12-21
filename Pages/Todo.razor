@@ -1,7 +1,7 @@
 ﻿@page "/todo"
 @using BlazorApp.Models;
 
-<h3>Todo</h3>
+<h3>Todo (@todos.Count(todo => !todo.IsDone))</h3>
 
 <input placeholder="Something todo" @bind="newTodo" />
 <button @onclick="AddTodo">Add todo</button>

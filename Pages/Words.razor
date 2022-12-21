@@ -1,4 +1,4 @@
-﻿@page "/words"
+﻿@page "/words"  
 
 <PageTitle>Words</PageTitle>
 
@@ -25,6 +25,8 @@
 		}
 	</tbody>
 </table>
+
+<Counter IncrementAmount="20" />
 
 @code {
 	private List<string> currentWords = new List<string>();

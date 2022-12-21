@@ -1,0 +1,36 @@
+﻿@page "/words"
+
+<PageTitle>Words</PageTitle>
+
+<h1>Words</h1>
+
+<p>Enter new word:</p>
+
+<button class="btn btn-primary" @onclick="AddWord">Add 'hello'</button>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Word</th>
+			<th>Word Length</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (string word in currentWords)
+		{
+			<tr>
+				<td>@word</td>
+				<td>@word.Length</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+@code {
+	private List<string> currentWords = new List<string>();
+
+	private void AddWord()
+	{
+		currentWords.Add("hello");
+	}
+}

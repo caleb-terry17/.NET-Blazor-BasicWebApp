@@ -15,7 +15,7 @@ builder.Services.AddSingleton<PizzaService>();
 // app uses an HttpClient to get the JSON for pizza specials
 builder.Services.AddHttpClient();
 // registers the new PizzaContext and provides the filename for the SqLite DB
-builder.Services.AddSqlite<PizzaContext>("Data Source=Data/pizza.db");
+builder.Services.AddSqlite<PizzaContext>("Data Source=pizza.db");
 // adding a scoped service
 // this allows us to access it anywhere in the app
 // in order to use it in a file though, you must "inject the state"

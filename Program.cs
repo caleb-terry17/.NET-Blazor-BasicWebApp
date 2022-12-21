@@ -14,7 +14,7 @@ builder.Services.AddSingleton<PizzaService>();
 // app uses an HttpClient to get the JSON for pizza specials
 builder.Services.AddHttpClient();
 // registers the new PizzaContext and provides the filename for the SqLite DB
-builder.Services.AddSqlite<PizzaContext>("Data Source=pizza.db");
+builder.Services.AddSqlite<PizzaContext>("Data Source=Data/pizza.db");
 
 var app = builder.Build();
 
@@ -34,6 +34,7 @@ app.UseRouting();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
+// sets up controllers (i added this)
 app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
 
 // Initialize the database (i added this)

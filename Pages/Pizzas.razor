@@ -13,27 +13,10 @@
 }
 else
 {
-	<table>
-		<thead>
-			<tr>
-				<th>Pizza Name</th>
-				<th>Id</th>
-				<th>Price</th>
-				<th>Description</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (Pizza pizza in pizzas)
-			{
-				<tr>
-					<td>@pizza.Name</td>
-					<td>@pizza.Id</td>
-					<td>@pizza.Price</td>
-					<td>@pizza.Description</td>
-				</tr>
-			}
-		</tbody>
-	</table>
+	@foreach (Pizza pizza in pizzas)
+	{
+		<DisplayPizza PizzaName="@pizza.Name" PizzaDescription="@pizza.Description" />
+	}
 }
 
 @code {

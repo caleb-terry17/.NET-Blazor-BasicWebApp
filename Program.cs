@@ -1,4 +1,5 @@
 using BlazorApp.Data;
+using BlazorApp.Models;
 using BlazorApp.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -15,6 +16,12 @@ builder.Services.AddSingleton<PizzaService>();
 builder.Services.AddHttpClient();
 // registers the new PizzaContext and provides the filename for the SqLite DB
 builder.Services.AddSqlite<PizzaContext>("Data Source=Data/pizza.db");
+// adding a scoped service
+// this allows us to access it anywhere in the app
+// in order to use it in a file though, you must "inject the state"
+// @inject PizzaSalesState <name used to reference state in file>
+// then you can reference it using the name you gave it ^
+builder.Services.AddScoped<PizzaSalesState>();
 
 var app = builder.Build();
 

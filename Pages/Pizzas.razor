@@ -4,8 +4,13 @@
 @inject PizzaService PizzaSvc;
 @inject HttpClient HttpClient;
 @inject NavigationManager NavigationManager;
+@inject PizzaSalesState SalesState;
 
 <h3>Pizzas</h3>
+
+<h4>Pizzas sold today: @SalesState.PizzasSoldToday</h4>
+
+<button @onclick=IncrementSales>FIRE SALE!</button>
 
 @if (pizzas == null)
 {
@@ -21,6 +26,11 @@ else
 
 @code {
 	private List<Pizza>? pizzas = null;
+
+	private void IncrementSales()
+	{
+		SalesState.PizzasSoldToday++;
+	}
 
 	protected override async Task OnInitializedAsync()
 	{

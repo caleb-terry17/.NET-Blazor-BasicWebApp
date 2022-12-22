@@ -1,5 +1,7 @@
 ﻿@using BlazorApp.Models;
 @using BlazorApp.Data;
+@inject HttpClient HttpClient;
+@inject NavigationManager NavigationManager;
 
 <h3>New Pizza...</h3>
 
@@ -28,7 +30,7 @@
 	private bool vegetarian = false;
 	private bool vegan = false;
 
-	private void AddPizza()
+	private async void AddPizza()
 	{
 		if (string.IsNullOrEmpty(name) ||
 			string.IsNullOrEmpty(description) ||
@@ -37,22 +39,26 @@
 			return;  // don't add the pizza
 		}
 
-		// add to db
-		using (PizzaContext context = new PizzaContext())
+		Pizza pizza = new Pizza()
 		{
-			Pizza pizza = new Pizza()
-			{
-				Name = name,
-				Description = description,
-				Price = price,
-				Vegetarian = vegetarian,
-				Vegan = vegan,
-				ImageUrl = "N/A",
-			};
+			Name = name,
+			Description = description,
+			Price = price,
+			Vegetarian = vegetarian,
+			Vegan = vegan,
+			ImageUrl = "N/A",
+		};
 
-			context.Pizzas.Add(pizza);
-			context.SaveChanges();
-		}
+		// Post to controller => controller handles db upload
+		await HttpClient.PostAsJsonAsync<Pizza>(NavigationManager.BaseUri + "pizzas", pizza);
+
+		// add to db
+		//using (PizzaContext context = new PizzaContext())
+		//{
+
+		//	context.Pizzas.Add(pizza);
+		//	context.SaveChanges();
+		//}
 
 		// clear out entries
 		name = "";

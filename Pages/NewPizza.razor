@@ -1,0 +1,64 @@
+﻿@using BlazorApp.Models;
+@using BlazorApp.Data;
+
+<h3>New Pizza...</h3>
+
+<label>Name:</label>
+<input type="text" placeholder="Name" @bind="name" />
+
+<label>Description:</label>
+<input type="text" placeholder="Description" @bind="description" />
+
+<label>Price:</label>
+<input type="number" placeholder="Price" @bind="price" />
+
+<label>Vegetarian:</label>
+<input type="checkbox" @bind="vegetarian" />
+
+<label>Vegan:</label>
+<input type="checkbox" @bind="vegan" />
+
+<button @onclick="AddPizza">Add Pizza</button>
+
+@code 
+{
+	private string name = "";
+	private string description = "";
+	private decimal price = 0.0M;
+	private bool vegetarian = false;
+	private bool vegan = false;
+
+	private void AddPizza()
+	{
+		if (string.IsNullOrEmpty(name) ||
+			string.IsNullOrEmpty(description) ||
+			price < 0.01M)
+		{
+			return;  // don't add the pizza
+		}
+
+		// add to db
+		using (PizzaContext context = new PizzaContext())
+		{
+			Pizza pizza = new Pizza()
+			{
+				Name = name,
+				Description = description,
+				Price = price,
+				Vegetarian = vegetarian,
+				Vegan = vegan,
+				ImageUrl = "N/A",
+			};
+
+			context.Pizzas.Add(pizza);
+			context.SaveChanges();
+		}
+
+		// clear out entries
+		name = "";
+		description = "";
+		price = 0.0M;
+		vegetarian = false;
+		vegan = false;
+	}
+}

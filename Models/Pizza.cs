@@ -8,6 +8,6 @@
         public decimal Price { get; set; }
         public bool Vegetarian { get; set; }
         public bool Vegan { get; set; }
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
     }
 }

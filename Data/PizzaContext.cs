@@ -7,9 +7,12 @@ namespace BlazorApp.Data
 	{
 		public DbSet<Pizza> Pizzas { get; set; }
 
-		public PizzaContext(DbContextOptions options) : base(options)
-		{
+		public PizzaContext() : base() {}
+		public PizzaContext(DbContextOptions options) : base(options) { }
 
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		{
+			optionsBuilder.UseSqlite("Data Source=pizza.db");
 		}
 	}
 }
